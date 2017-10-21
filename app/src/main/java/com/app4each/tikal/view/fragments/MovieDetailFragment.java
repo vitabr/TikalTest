@@ -62,7 +62,7 @@ public class MovieDetailFragment extends Fragment implements Constants {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.movie_detail)).setText(mItem.description);
+            ((CollapsingToolbarLayout) rootView.findViewById(R.id.toolbar_layout)).setTitle(mItem.title);
         }
 
         return rootView;
