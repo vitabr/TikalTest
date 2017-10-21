@@ -73,7 +73,7 @@ public enum PicassoCache {
     }
 
     /**
-     * Calculates bonded min max cache size. Min value is {@link #MIN_DISK_CACHE_SIZE}
+     * Calculates bonded min max cache size. Min trailerUrl is {@link #MIN_DISK_CACHE_SIZE}
      *
      * @param dir
      *            cache dir

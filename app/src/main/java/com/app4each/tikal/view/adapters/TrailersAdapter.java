@@ -1,5 +1,8 @@
 package com.app4each.tikal.view.adapters;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,9 +10,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.app4each.tikal.R;
+import com.app4each.tikal.controller.MessageEvent;
 import com.app4each.tikal.model.Movie;
-import com.app4each.tikal.model.RealmString;
+import com.app4each.tikal.model.Trailer;
 import com.app4each.tikal.utils.Constants;
+
+import org.greenrobot.eventbus.EventBus;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -23,7 +29,7 @@ public class TrailersAdapter
         extends RecyclerView.Adapter<TrailersAdapter.ViewHolder>
         implements Constants{
 
-    private RealmList<RealmString> mTrailers;
+    private RealmList<Trailer> mTrailers;
     private int mMovieId;
 
     public TrailersAdapter(int movieId) {
@@ -43,12 +49,15 @@ public class TrailersAdapter
     @Override
     public void onBindViewHolder(final TrailersAdapter.ViewHolder holder, int position) {
         holder.trailer = mTrailers.get(position);
-        holder.mTitle.setText(holder.trailer.value);
+        holder.mTitle.setText(holder.trailer.name);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Play trailer externaly
+
+                Bundle data = new Bundle();
+                data.putString(EXTRA_URL, holder.trailer.trailerUrl);
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.EVENT_SHOW_TRAILER,data));
             }
         });
     }
@@ -61,7 +70,7 @@ public class TrailersAdapter
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mTitle;
-        public RealmString trailer;
+        public Trailer trailer;
 
         public ViewHolder(View view) {
             super(view);

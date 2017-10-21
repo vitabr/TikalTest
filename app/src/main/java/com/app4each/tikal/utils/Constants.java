@@ -11,4 +11,5 @@ public interface Constants {
 
     // Bundle extras
     String EXTRA_ID = "movieId";
+    String EXTRA_URL = "url";
 }

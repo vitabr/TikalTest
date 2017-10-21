@@ -8,7 +8,8 @@ import io.realm.RealmObject;
  * Helper class to work with RealmList
  */
 
-public class RealmString extends RealmObject{
-    public String value;
-    public RealmString(){}
+public class Trailer extends RealmObject{
+    public String trailerUrl;
+    public String name;
+    public Trailer(){}
 }

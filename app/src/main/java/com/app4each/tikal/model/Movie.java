@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.app4each.tikal.Tikal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import info.movito.themoviedbapi.model.MovieDb;
@@ -30,7 +29,7 @@ public class Movie extends RealmObject{
     public String year;
     public String posterPath;
     public String description;
-    public RealmList<RealmString> videoUrls = new RealmList<>();
+    public RealmList<Trailer> videoUrls = new RealmList<>();
 
     public Movie(){  }
 
@@ -46,10 +45,11 @@ public class Movie extends RealmObject{
         if( videos != null) {
             for (Video video : videos) {
                 if(!TextUtils.isEmpty(video.getSite()) && !TextUtils.isEmpty(video.getId()) ) {
-                    RealmString videoUrl = new RealmString();
-                    videoUrl.value = "https://www." + video.getSite().toLowerCase() + ".com/watch?v=" + video.getKey();
-                    Log.e(" ", "         video url:" + videoUrl.value);
-                    videoUrls.add(videoUrl);
+                    Trailer trailer = new Trailer();
+                    trailer.name = video.getName();
+                    trailer.trailerUrl = "https://www." + video.getSite().toLowerCase() + ".com/watch?v=" + video.getKey();
+                    Log.e(" ", "         video url:" + trailer.trailerUrl);
+                    videoUrls.add(trailer);
                 }
             }
         }

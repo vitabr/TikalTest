@@ -56,7 +56,6 @@ public class MovieListActivity
         setContentView(R.layout.activity_movie_list);
 
         mRealm = Realm.getDefaultInstance();
-        mRealm.addChangeListener(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -101,11 +100,13 @@ public class MovieListActivity
     protected void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+        mRealm.addChangeListener(this);
     }
 
     @Override
     protected void onStop() {
         EventBus.getDefault().unregister(this);
+        mRealm.removeChangeListener(this);
         super.onStop();
     }
 
@@ -156,6 +157,7 @@ public class MovieListActivity
         }
     }
 
+    //*****************************************/
     ///  Realm Listener
     //*****************************************/
     @Override

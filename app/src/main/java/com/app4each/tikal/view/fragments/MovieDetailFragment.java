@@ -5,12 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +23,7 @@ import com.app4each.tikal.view.adapters.TrailersAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmChangeListener;
 
 /**
  * A fragment representing a single Movie detail screen.
@@ -32,7 +31,9 @@ import io.realm.Realm;
  * in two-pane mode (on tablets) or a {@link MovieDetailActivity}
  * on handsets.
  */
-public class MovieDetailFragment extends Fragment implements Constants {
+public class MovieDetailFragment
+        extends Fragment
+        implements RealmChangeListener, Constants {
 
 
     @BindView(R.id.tvYear) TextView mYear;
@@ -40,7 +41,7 @@ public class MovieDetailFragment extends Fragment implements Constants {
     @BindView(R.id.tvRaiting) TextView mRaiting;
     @BindView(R.id.tvDescription) TextView mDescription;
     @BindView(R.id.ivPoster)  ImageView mPoster;
-    @BindView(R.id.rvTrailersList) RecyclerView mTrailers;
+    @BindView(R.id.rvTrailersList) RecyclerView mTrailersList;
 
     /**
      * The movie content this fragment is presenting.
@@ -74,6 +75,18 @@ public class MovieDetailFragment extends Fragment implements Constants {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        Realm.getDefaultInstance().addChangeListener(this);
+    }
+
+    @Override
+    public void onStop() {
+        Realm.getDefaultInstance().removeChangeListener(this);
+        super.onStop();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.movie_detail, container, false);
@@ -92,11 +105,20 @@ public class MovieDetailFragment extends Fragment implements Constants {
 
         }
 
-        setupRecyclerView(mTrailers);
+        setupRecyclerView(mTrailersList);
         return rootView;
     }
 
     private void setupRecyclerView(@NonNull final RecyclerView recyclerView) {
         recyclerView.setAdapter(new TrailersAdapter(mItem.id));
+    }
+
+
+    //*****************************************/
+    ///  Realm Listener
+    //*****************************************/
+    @Override
+    public void onChange(Object element) {
+        mTrailersList.getAdapter().notifyDataSetChanged();
     }
 }

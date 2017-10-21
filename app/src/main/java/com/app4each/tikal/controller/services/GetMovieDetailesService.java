@@ -31,19 +31,23 @@ public class GetMovieDetailesService extends IntentService {
 
                 RealmResults<Movie> movies = Realm.getDefaultInstance().where(Movie.class).findAll();
                 for (Movie movie : movies) {
-                    final MovieDb movieDb = api.getMovies().getMovie(movie.id, "en", TmdbMovies.MovieMethod.videos);
+                    try {
+                        final MovieDb movieDb = api.getMovies().getMovie(movie.id, "en", TmdbMovies.MovieMethod.videos);
 
-                    // Save to db incoming records one by one is slower than in bulk
-                    // but it will give us records updated on UI in real time
-                    // In case of recognizable overhead, just move all records result saving to single transaction
-                    Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
-                        @Override
-                        public void execute(Realm realm) {
+                        // Save to db incoming records one by one is slower than in bulk
+                        // but it will give us records updated on UI in real time
+                        // In case of recognizable overhead, just move all records result saving to single transaction
+                        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+                            @Override
+                            public void execute(Realm realm) {
 
-                            Movie movieToAdd = new Movie(movieDb);
-                            realm.copyToRealmOrUpdate(movieToAdd);
-                        }
-                    });
+                                Movie movieToAdd = new Movie(movieDb);
+                                realm.copyToRealmOrUpdate(movieToAdd);
+                            }
+                        });
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
     }
 }
