@@ -1,12 +1,16 @@
 package com.app4each.tikal.view.fragments;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +20,7 @@ import com.app4each.tikal.model.Movie;
 import com.app4each.tikal.utils.Constants;
 import com.app4each.tikal.view.MovieDetailActivity;
 import com.app4each.tikal.view.MovieListActivity;
+import com.app4each.tikal.view.adapters.TrailersAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,6 +40,8 @@ public class MovieDetailFragment extends Fragment implements Constants {
     @BindView(R.id.tvRaiting) TextView mRaiting;
     @BindView(R.id.tvDescription) TextView mDescription;
     @BindView(R.id.ivPoster)  ImageView mPoster;
+    @BindView(R.id.rvTrailersList) RecyclerView mTrailers;
+
     /**
      * The movie content this fragment is presenting.
      */
@@ -63,6 +70,7 @@ public class MovieDetailFragment extends Fragment implements Constants {
                 appBarLayout.setTitle(mItem.title);
             }
         }
+
     }
 
     @Override
@@ -84,6 +92,11 @@ public class MovieDetailFragment extends Fragment implements Constants {
 
         }
 
+        setupRecyclerView(mTrailers);
         return rootView;
+    }
+
+    private void setupRecyclerView(@NonNull final RecyclerView recyclerView) {
+        recyclerView.setAdapter(new TrailersAdapter(mItem.id));
     }
 }

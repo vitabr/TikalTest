@@ -6,6 +6,9 @@ package com.app4each.tikal.utils;
 
 public interface Constants {
 
+    // DB ids
+    String RECORD_ID = "id";
+
     // Bundle extras
     String EXTRA_ID = "movieId";
 }

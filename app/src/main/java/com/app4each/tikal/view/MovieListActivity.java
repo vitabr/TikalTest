@@ -20,10 +20,17 @@ import android.widget.ImageView;
 
 import com.app4each.tikal.R;
 import com.app4each.tikal.Tikal;
+import com.app4each.tikal.controller.MessageEvent;
 import com.app4each.tikal.model.Movie;
+import com.app4each.tikal.services.GetMovieDetailesService;
 import com.app4each.tikal.services.GetMoviesService;
 import com.app4each.tikal.utils.Constants;
+import com.app4each.tikal.view.adapters.MovieRecyclerViewAdapter;
 import com.app4each.tikal.view.fragments.MovieDetailFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
@@ -72,7 +79,6 @@ public class MovieListActivity
 
         mRecyclerView = (RecyclerView) findViewById(R.id.movie_list);
         assert mRecyclerView != null;
-        setupRecyclerView(mRecyclerView);
 
         if (findViewById(R.id.movie_detail_container) != null) {
             // The detail container view will be present only in the
@@ -92,13 +98,25 @@ public class MovieListActivity
             }
         }
 
+        // Initialize recycle view with db records.
+        setupRecyclerView(mRecyclerView);
         refreshDataAsync();
-
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
 
     private void setupRecyclerView(@NonNull final RecyclerView recyclerView) {
-        recyclerView.setAdapter(new MovieRecyclerViewAdapter());
+        recyclerView.setAdapter(new MovieRecyclerViewAdapter(mTwoPane));
         recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -127,6 +145,23 @@ public class MovieListActivity
     }
 
     //*****************************************/
+    ///  Event Bus Subscriber
+    //*****************************************/
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+        switch (event.eventId){
+            case MessageEvent.EVENT_OPEN_MOVIE_ACTIVITY:
+                Bundle arguments = new Bundle();
+                arguments.putInt(EXTRA_ID, event.data.getInt(EXTRA_ID));
+                MovieDetailFragment fragment = new MovieDetailFragment();
+                fragment.setArguments(arguments);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.movie_detail_container, fragment)
+                        .commit();
+        }
+    }
+
     ///  Realm Listener
     //*****************************************/
     @Override
@@ -134,68 +169,5 @@ public class MovieListActivity
         mRecyclerView.getAdapter().notifyDataSetChanged();
     }
 
-    //*****************************************/
-    ///  ResicleViewAdapter
-    //*****************************************/
-    public class MovieRecyclerViewAdapter
-            extends RecyclerView.Adapter<MovieRecyclerViewAdapter.ViewHolder>{
 
-        private RealmResults<Movie> mItems;
-
-        public MovieRecyclerViewAdapter() {
-           mItems = Realm.getDefaultInstance().where(Movie.class).findAll();
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.movie_list_item, parent, false);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            Log.e("onBindViewHolder", "position:" + position + ", id:" + mItems.get(position).id);
-            holder.mItem = mItems.get(position);
-            Tikal.PICASSO.load( mItems.get(position).getPosterUrl()).placeholder(R.drawable.wait_placeholder).into(holder.mImageView);
-
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mTwoPane) {
-                        Bundle arguments = new Bundle();
-                        arguments.putInt(EXTRA_ID, holder.mItem.id);
-                        MovieDetailFragment fragment = new MovieDetailFragment();
-                        fragment.setArguments(arguments);
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.movie_detail_container, fragment)
-                                .commit();
-                    } else {
-                        Context context = v.getContext();
-                        Intent intent = new Intent(context, MovieDetailActivity.class);
-                        intent.putExtra(EXTRA_ID, holder.mItem.id);
-
-                        context.startActivity(intent);
-                    }
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return mItems.size();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public final View mView;
-            public final ImageView mImageView;
-            public Movie mItem;
-
-            public ViewHolder(View view) {
-                super(view);
-                mView = view;
-                mImageView = (ImageView) view.findViewById(R.id.imgPoster);
-            }
-        }
-    }
 }

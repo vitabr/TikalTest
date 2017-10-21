@@ -82,12 +82,27 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ivPoster"/>
 
-            <FrameLayout
-                android:id="@+id/trailersContainer"
+            <TextView
+                android:id="@+id/tvTrailers"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:text="@string/trailers"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:layout_below="@+id/tvDescription"/>
 
-            </FrameLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvTrailersList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tvTrailers"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                app:layoutManager="LinearLayoutManager"
+                tools:context="com.app4each.tikal.view.MovieListActivity"
+                tools:listitem="@layout/trailer_list_item">
+
+            </android.support.v7.widget.RecyclerView>
 
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
