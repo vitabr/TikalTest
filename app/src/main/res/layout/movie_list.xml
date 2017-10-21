@@ -11,4 +11,4 @@
                                         app:layoutManager="GridLayoutManager"
                                         app:spanCount="3"
                                         tools:context="com.app4each.tikal.view.MovieListActivity"
-                                        tools:listitem="@layout/movie_list_content"/>
+                                        tools:listitem="@layout/movie_list_item"/>

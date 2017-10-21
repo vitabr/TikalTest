@@ -6,4 +6,5 @@
     <dimen name="item_height">150dp</dimen>
     <dimen name="list_width_land">210dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="info_panel_margin">5dp</dimen>
 </resources>

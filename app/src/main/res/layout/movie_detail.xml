@@ -35,10 +35,62 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
-        android:id="@+id/movie_detail_container"
+        android:id="@+id/movie_detail_panel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:layout_margin="@dimen/info_panel_margin"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivPoster"
+                android:layout_width="@dimen/item_width"
+                android:layout_height="@dimen/item_height"
+                android:src="@drawable/wait_placeholder"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:layout_toEndOf="@+id/ivPoster"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvYear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tvDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tvRaiting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivPoster"/>
+
+            <FrameLayout
+                android:id="@+id/trailersContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </FrameLayout>
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <!--<android.support.design.widget.FloatingActionButton-->
         <!--android:id="@+id/fab"-->
@@ -46,7 +98,7 @@
         <!--android:layout_height="wrap_content"-->
         <!--android:layout_gravity="center_vertical|start"-->
         <!--android:layout_margin="@dimen/fab_margin"-->
-        <!--app:layout_anchor="@+id/movie_detail_container"-->
+        <!--app:layout_anchor="@+id/movie_detail_panel"-->
         <!--app:layout_anchorGravity="top|end"-->
         <!--app:srcCompat="@android:drawable/stat_notify_chat"/>-->
 

@@ -7,14 +7,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app4each.tikal.R;
+import com.app4each.tikal.Tikal;
 import com.app4each.tikal.model.Movie;
 import com.app4each.tikal.utils.Constants;
 import com.app4each.tikal.view.MovieDetailActivity;
 import com.app4each.tikal.view.MovieListActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.realm.Realm;
 
 /**
@@ -25,6 +29,12 @@ import io.realm.Realm;
  */
 public class MovieDetailFragment extends Fragment implements Constants {
 
+
+    @BindView(R.id.tvYear) TextView mYear;
+    @BindView(R.id.tvDuration) TextView mDuration;
+    @BindView(R.id.tvRaiting) TextView mRaiting;
+    @BindView(R.id.tvDescription) TextView mDescription;
+    @BindView(R.id.ivPoster)  ImageView mPoster;
     /**
      * The movie content this fragment is presenting.
      */
@@ -60,9 +70,18 @@ public class MovieDetailFragment extends Fragment implements Constants {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.movie_detail, container, false);
 
+        ButterKnife.bind(this, rootView);
+
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
             ((CollapsingToolbarLayout) rootView.findViewById(R.id.toolbar_layout)).setTitle(mItem.title);
+            Tikal.PICASSO.load( mItem.getPosterUrl()).placeholder(R.drawable.wait_placeholder).into(mPoster);
+
+            mYear.setText(mItem.year);
+            mDuration.setText(""+mItem.duration);
+            mRaiting.setText("8.0/10");
+            mDescription.setText(mItem.description);
+
         }
 
         return rootView;
