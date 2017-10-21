@@ -1,10 +1,16 @@
 package com.app4each.tikal.model;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.app4each.tikal.Tikal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import info.movito.themoviedbapi.model.MovieDb;
+import info.movito.themoviedbapi.model.Video;
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -14,6 +20,8 @@ import io.realm.annotations.PrimaryKey;
 
 public class Movie extends RealmObject{
 
+
+
     @PrimaryKey
     public int id;
 
@@ -22,6 +30,7 @@ public class Movie extends RealmObject{
     public String year;
     public String posterPath;
     public String description;
+    public RealmList<RealmString> videoUrls = new RealmList<>();
 
     public Movie(){  }
 
@@ -32,7 +41,19 @@ public class Movie extends RealmObject{
         year = movie.getReleaseDate();
         posterPath = movie.getPosterPath();
         description = movie.getOverview();
-        Log.e("Create Movie","id:"+id+", poster:"+posterPath + ", title:"+ title + ", description:"+description);
+        List<Video> videos = movie.getVideos();
+
+        if( videos != null) {
+            for (Video video : videos) {
+                if(!TextUtils.isEmpty(video.getSite()) && !TextUtils.isEmpty(video.getId()) ) {
+                    RealmString videoUrl = new RealmString();
+                    videoUrl.value = "https://www." + video.getSite().toLowerCase() + ".com/watch?v=" + video.getKey();
+                    Log.e(" ", "         video url:" + videoUrl.value);
+                    videoUrls.add(videoUrl);
+                }
+            }
+        }
+        Log.e("Create Movie","id:"+id+", video urls:" + videoUrls);
     }
 
     public String getPosterUrl(){

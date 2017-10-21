@@ -33,6 +33,7 @@
         </activity>
 
         <service android:name=".services.GetMoviesService"/>
+        <service android:name=".services.GetMovieDetailesService"/>
     </application>
 
 </manifest>

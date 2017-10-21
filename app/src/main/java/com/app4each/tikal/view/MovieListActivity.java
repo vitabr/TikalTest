@@ -80,6 +80,16 @@ public class MovieListActivity
             // If this view is present, then the
             // activity should be in two-pane mode.
             mTwoPane = true;
+            RealmResults<Movie> movies = mRealm.where(Movie.class).findAll();
+            if(!movies.isEmpty()) {
+                Bundle arguments = new Bundle();
+                arguments.putInt(EXTRA_ID, movies.first().id);
+                MovieDetailFragment fragment = new MovieDetailFragment();
+                fragment.setArguments(arguments);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.movie_detail_container, fragment)
+                        .commit();
+            }
         }
 
         refreshDataAsync();

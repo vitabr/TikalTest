@@ -2,6 +2,7 @@ package com.app4each.tikal;
 
 import android.app.Application;
 
+import com.app4each.tikal.controller.EventsController;
 import com.app4each.tikal.model.Movie;
 import com.app4each.tikal.utils.PicassoCache;
 import com.squareup.picasso.Picasso;
@@ -34,5 +35,14 @@ public class Tikal extends Application {
 
         // Init Picaso
         PICASSO = PicassoCache.INSTANCE.getPicassoCache(this);
+
+        // Init inner events controller
+        EventsController.init(this);
+    }
+
+    @Override
+    public void onTerminate() {
+        EventsController.deinit();
+        super.onTerminate();
     }
 }

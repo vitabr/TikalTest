@@ -6,10 +6,6 @@ package com.app4each.tikal.utils;
 
 public interface Constants {
 
-    // Actions
-    String ACTION_DISCOVER_POP_MOVIES = "action_discover_pop_movies";
-    String ACTION_FIND_MOVIE_BY_ID = "action_find_movie_by_id";
-
     // Bundle extras
     String EXTRA_ID = "movieId";
 }

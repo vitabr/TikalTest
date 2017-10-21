@@ -11,6 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "TMDB_API_KEY", "\"8af268faa6bda7029a469419d1258a14\"")
     }
     buildTypes {
         release {
@@ -41,7 +42,7 @@ dependencies {
     // Json parser to POJO lib
     compile 'com.google.code.gson:gson:2.6.2'
 
-    // retrofit, okhttp
+    // retrofit
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
 
@@ -54,6 +55,9 @@ dependencies {
     // Butter Knife
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    // EventBus
+    compile 'org.greenrobot:eventbus:3.0.0'
 
     testCompile 'junit:junit:4.12'
 }
