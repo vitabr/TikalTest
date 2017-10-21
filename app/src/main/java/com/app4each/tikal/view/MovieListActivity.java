@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 
 import com.app4each.tikal.R;
@@ -40,14 +39,14 @@ import io.realm.RealmResults;
  */
 public class MovieListActivity
         extends AppCompatActivity
-        implements RealmChangeListener, ViewTreeObserver.OnGlobalLayoutListener, Constants {
+        implements RealmChangeListener, Constants {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
-    private RecyclerView mListView;
+    private RecyclerView mRecyclerView;
     private Realm mRealm;
 
     @Override
@@ -71,9 +70,9 @@ public class MovieListActivity
             }
         });
 
-        mListView = (RecyclerView) findViewById(R.id.movie_list);
-        assert mListView != null;
-        setupRecyclerView(mListView);
+        mRecyclerView = (RecyclerView) findViewById(R.id.movie_list);
+        assert mRecyclerView != null;
+        setupRecyclerView(mRecyclerView);
 
         if (findViewById(R.id.movie_detail_container) != null) {
             // The detail container view will be present only in the
@@ -88,18 +87,18 @@ public class MovieListActivity
     }
 
 
-    private void setupRecyclerView(@NonNull final RecyclerView mRecyclerView) {
-        mRecyclerView.setAdapter(new MovieRecyclerViewAdapter());
-        mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(
+    private void setupRecyclerView(@NonNull final RecyclerView recyclerView) {
+        recyclerView.setAdapter(new MovieRecyclerViewAdapter());
+        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
-                        mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        int viewWidth = mRecyclerView.getMeasuredWidth();
+                        recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        int viewWidth = recyclerView.getMeasuredWidth();
                         float cardViewWidth = getResources().getDimension(R.dimen.item_width);
                         int newSpanCount = (int) Math.floor(viewWidth / cardViewWidth);
-                        ((GridLayoutManager)mRecyclerView.getLayoutManager()).setSpanCount(newSpanCount);
-                        mRecyclerView.getLayoutManager().requestLayout();
+                        ((GridLayoutManager)recyclerView.getLayoutManager()).setSpanCount(newSpanCount);
+                        recyclerView.getLayoutManager().requestLayout();
                     }
                 });
     }
@@ -122,15 +121,7 @@ public class MovieListActivity
     //*****************************************/
     @Override
     public void onChange(Object element) {
-        mListView.getAdapter().notifyDataSetChanged();
-    }
-
-    //*****************************************/
-    ///  OnGlobalLayout Listener
-    //*****************************************/
-    @Override
-    public void onGlobalLayout() {
-
+        mRecyclerView.getAdapter().notifyDataSetChanged();
     }
 
     //*****************************************/
