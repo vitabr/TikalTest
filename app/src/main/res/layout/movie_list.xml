@@ -6,8 +6,9 @@
                                         android:name="com.app4each.tikal.MovieListFragment"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:layout_marginLeft="16dp"
-                                        android:layout_marginRight="16dp"
-                                        app:layoutManager="LinearLayoutManager"
-                                        tools:context="com.app4each.tikal.MovieListActivity"
+                                        android:layout_marginLeft="5dp"
+                                        android:layout_marginRight="5dp"
+                                        app:layoutManager="GridLayoutManager"
+                                        app:spanCount="3"
+                                        tools:context="com.app4each.tikal.view.MovieListActivity"
                                         tools:listitem="@layout/movie_list_content"/>
