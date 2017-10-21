@@ -51,5 +51,9 @@ dependencies {
     // TheMovieDB API lib
     compile group: 'info.movito', name: 'themoviedbapi', version:'1.6'
 
+    // Butter Knife
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
     testCompile 'junit:junit:4.12'
 }
