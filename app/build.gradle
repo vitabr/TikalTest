@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 25
@@ -17,6 +18,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/MANIFEST.MF'
+    }
 }
 
 dependencies {
@@ -28,5 +37,19 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
+
+    // Json parser to POJO lib
+    compile 'com.google.code.gson:gson:2.6.2'
+
+    // retrofit, okhttp
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+
+    // Picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+    // TheMovieDB API lib
+    compile group: 'info.movito', name: 'themoviedbapi', version:'1.6'
+
     testCompile 'junit:junit:4.12'
 }
