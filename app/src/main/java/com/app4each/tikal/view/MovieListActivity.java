@@ -1,6 +1,5 @@
 package com.app4each.tikal.view;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,22 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 
 
 import com.app4each.tikal.R;
-import com.app4each.tikal.Tikal;
 import com.app4each.tikal.controller.MessageEvent;
 import com.app4each.tikal.model.Movie;
-import com.app4each.tikal.services.GetMovieDetailesService;
-import com.app4each.tikal.services.GetMoviesService;
+import com.app4each.tikal.controller.services.GetMovieDetailesService;
+import com.app4each.tikal.controller.services.GetMoviesService;
 import com.app4each.tikal.utils.Constants;
-import com.app4each.tikal.view.adapters.MovieRecyclerViewAdapter;
+import com.app4each.tikal.view.adapters.MoviesAdapter;
 import com.app4each.tikal.view.fragments.MovieDetailFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -116,7 +110,7 @@ public class MovieListActivity
     }
 
     private void setupRecyclerView(@NonNull final RecyclerView recyclerView) {
-        recyclerView.setAdapter(new MovieRecyclerViewAdapter(mTwoPane));
+        recyclerView.setAdapter(new MoviesAdapter(mTwoPane));
         recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override

@@ -3,7 +3,7 @@ package com.app4each.tikal.controller;
 import android.content.Context;
 import android.content.Intent;
 
-import com.app4each.tikal.services.GetMovieDetailesService;
+import com.app4each.tikal.controller.services.GetMovieDetailesService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

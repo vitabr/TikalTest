@@ -1,4 +1,4 @@
-package com.app4each.tikal.services;
+package com.app4each.tikal.controller.services;
 
 import android.app.IntentService;
 import android.content.Intent;

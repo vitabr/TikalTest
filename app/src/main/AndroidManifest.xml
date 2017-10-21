@@ -32,8 +32,8 @@
                 android:value="com.app4each.tikal.view.MovieListActivity"/>
         </activity>
 
-        <service android:name=".services.GetMoviesService"/>
-        <service android:name=".services.GetMovieDetailesService"/>
+        <service android:name=".controller.services.GetMoviesService"/>
+        <service android:name=".controller.services.GetMovieDetailesService"/>
     </application>
 
 </manifest>

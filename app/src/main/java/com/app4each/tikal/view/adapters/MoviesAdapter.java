@@ -27,27 +27,27 @@ import io.realm.RealmResults;
  */
 
 
-public class MovieRecyclerViewAdapter
-        extends RecyclerView.Adapter<MovieRecyclerViewAdapter.ViewHolder>
+public class MoviesAdapter
+        extends RecyclerView.Adapter<MoviesAdapter.ViewHolder>
         implements Constants{
 
     private RealmResults<Movie> mItems;
     private boolean mTwoPane;
 
-    public MovieRecyclerViewAdapter(boolean isTwoPane) {
+    public MoviesAdapter(boolean isTwoPane) {
         mItems = Realm.getDefaultInstance().where(Movie.class).findAll();
         mTwoPane = isTwoPane;
     }
 
     @Override
-    public MovieRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MoviesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.movie_list_item, parent, false);
-        return new MovieRecyclerViewAdapter.ViewHolder(view);
+        return new MoviesAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final MovieRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final MoviesAdapter.ViewHolder holder, int position) {
         Log.e("onBindViewHolder", "position:" + position + ", id:" + mItems.get(position).id);
         holder.movie = mItems.get(position);
         Tikal.PICASSO.load( mItems.get(position).getPosterUrl()).placeholder(R.drawable.wait_placeholder).into(holder.mImageView);

@@ -1,4 +1,4 @@
-package com.app4each.tikal.services;
+package com.app4each.tikal.controller.services;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 
 import com.app4each.tikal.BuildConfig;
 import com.app4each.tikal.model.Movie;
-
-import java.util.List;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
