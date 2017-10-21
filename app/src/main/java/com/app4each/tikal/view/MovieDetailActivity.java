@@ -1,4 +1,4 @@
-package com.app4each.tikal;
+package com.app4each.tikal.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,18 @@ import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+
+import com.app4each.tikal.R;
+import com.app4each.tikal.view.fragments.MovieDetailFragment;
+
+import java.util.List;
+
+import info.movito.themoviedbapi.TmdbApi;
+import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.model.ArtworkType;
+import info.movito.themoviedbapi.model.MovieDb;
+
+import static com.app4each.tikal.view.fragments.MovieDetailFragment.*;
 
 /**
  * An activity representing a single Movie detail screen. This
@@ -53,14 +65,16 @@ public class MovieDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(MovieDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(MovieDetailFragment.ARG_ITEM_ID));
+            arguments.putInt(EXTRA_ID,
+                    getIntent().getIntExtra(EXTRA_ID, 0));
             MovieDetailFragment fragment = new MovieDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.movie_detail_container, fragment)
                     .commit();
         }
+
+
     }
 
     @Override
