@@ -48,7 +48,6 @@ public class MoviesAdapter
 
     @Override
     public void onBindViewHolder(final MoviesAdapter.ViewHolder holder, int position) {
-        Log.e("onBindViewHolder", "position:" + position + ", id:" + mItems.get(position).id);
         holder.movie = mItems.get(position);
         Tikal.PICASSO.load( mItems.get(position).getPosterUrl()).placeholder(R.drawable.wait_placeholder).into(holder.mImageView);
 

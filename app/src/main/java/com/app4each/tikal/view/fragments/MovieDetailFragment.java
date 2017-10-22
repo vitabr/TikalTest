@@ -89,13 +89,20 @@ public class MovieDetailFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.movie_detail, container, false);
+        View rootView;
+                if(getArguments().containsKey(EXTRA_IS_ACTIVITY)){
+                    rootView = inflater.inflate(R.layout.movie_detail_panel, container, false);
+                }else{
+                    rootView = inflater.inflate(R.layout.fragment_movie_detail, container, false);
+                }
 
         ButterKnife.bind(this, rootView);
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((CollapsingToolbarLayout) rootView.findViewById(R.id.toolbar_layout)).setTitle(mItem.title);
+            if(!getArguments().containsKey(EXTRA_IS_ACTIVITY)){
+                ((CollapsingToolbarLayout) rootView.findViewById(R.id.toolbar_layout)).setTitle(mItem.title);
+            }
             Tikal.PICASSO.load( mItem.getPosterUrl()).placeholder(R.drawable.wait_placeholder).into(mPoster);
 
             mYear.setText(mItem.year);

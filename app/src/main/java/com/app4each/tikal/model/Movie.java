@@ -48,12 +48,10 @@ public class Movie extends RealmObject{
                     Trailer trailer = new Trailer();
                     trailer.name = video.getName();
                     trailer.trailerUrl = "https://www." + video.getSite().toLowerCase() + ".com/watch?v=" + video.getKey();
-                    Log.e(" ", "         video url:" + trailer.trailerUrl);
                     videoUrls.add(trailer);
                 }
             }
         }
-        Log.e("Create Movie","id:"+id+", video urls:" + videoUrls);
     }
 
     public String getPosterUrl(){

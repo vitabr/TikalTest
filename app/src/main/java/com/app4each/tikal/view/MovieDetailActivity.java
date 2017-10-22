@@ -34,23 +34,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        // Show the Up button in the action bar.
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
@@ -67,11 +50,22 @@ public class MovieDetailActivity extends AppCompatActivity {
             Bundle arguments = new Bundle();
             arguments.putInt(EXTRA_ID,
                     getIntent().getIntExtra(EXTRA_ID, 0));
+            arguments.putBoolean(EXTRA_IS_ACTIVITY, true);
+
             MovieDetailFragment fragment = new MovieDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.movie_detail_container, fragment)
                     .commit();
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+        setSupportActionBar(toolbar);
+
+        // Show the Up button in the action bar.
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
 

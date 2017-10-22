@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:showIn="@layout/fragment_movie_detail">
+
+    <ImageView
+        android:id="@+id/ivPoster"
+        android:layout_width="@dimen/item_width"
+        android:layout_height="@dimen/item_height"
+        android:src="@drawable/wait_placeholder" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_toEndOf="@+id/ivPoster"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvRaiting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivPoster" />
+
+    <TextView
+        android:id="@+id/tvTrailers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/trailers"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:layout_below="@+id/tvDescription" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvTrailersList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvTrailers"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        app:layoutManager="LinearLayoutManager"
+        tools:context="com.app4each.tikal.view.MovieListActivity"
+        tools:listitem="@layout/trailer_list_item">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>
+    

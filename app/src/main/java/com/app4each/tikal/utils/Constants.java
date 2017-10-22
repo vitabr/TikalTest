@@ -10,6 +10,7 @@ public interface Constants {
     String RECORD_ID = "id";
 
     // Bundle extras
+    String EXTRA_IS_ACTIVITY = "isActivity";
     String EXTRA_ID = "movieId";
     String EXTRA_URL = "url";
 }

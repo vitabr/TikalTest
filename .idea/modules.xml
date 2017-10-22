@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Tikal.iml" filepath="$PROJECT_DIR$/Tikal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TikalTest.iml" filepath="$PROJECT_DIR$/TikalTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
